@@ -16,37 +16,58 @@ Example
 -------
 
 Example of using this pusher client to consume websockets::
+```
+import sys
+sys.path.append('..')
 
-    import pusherclient
+import time
 
-    # Add a logging handler so we can see the raw communication data
-    import logging
-    root = logging.getLogger()
-    root.setLevel(logging.INFO)
-    ch = logging.StreamHandler(sys.stdout)
-    root.addHandler(ch)
+import pusherclient
 
-    global pusher
+# Add a logging handler so we can see the raw communication data
+import logging
+root = logging.getLogger()
+root.setLevel(logging.INFO)
+ch = logging.StreamHandler(sys.stdout)
+root.addHandler(ch)
 
-    # We can't subscribe until we've connected, so we use a callback handler
-    # to subscribe when able
-    def connect_handler(data):
-        channel = pusher.subscribe('mychannel')
-        channel.bind('myevent', callback)
+global pusher
 
-    pusher = pusherclient.Pusher(appkey)
+def print_usage(filename):
+    print("Usage: python %s <appkey> <cluster>" % filename)
+
+def channel_callback(data):
+    print("Channel Callback: %s" % data)
+
+def connect_handler(data):
+    channel = pusher.subscribe("my-channel")
+
+    channel.bind('my-event', channel_callback)
+    
+
+if __name__ == '__main__':
+    if len(sys.argv) != 3:
+        print_usage(sys.argv[0])
+        sys.exit(1)
+
+    appkey = sys.argv[1]
+    cluster = sys.argv[2]
+
+    pusher = pusherclient.Pusher(appkey,cluster=cluster)
+
     pusher.connection.bind('pusher:connection_established', connect_handler)
     pusher.connect()
 
     while True:
-        # Do other things in the meantime here...
         time.sleep(1)
+```
 
 Sending pusher events to a channel can be done simply using the pusher client supplied by pusher.  You can get it here: <http://github.com/newbamboo/pusher_client_python>
 
     import pusher
     pusher.app_id = app_id
     pusher.key = appkey
+    pusher.cluster = cluster
 
     p = pusher.Pusher()
     p['mychannel'].trigger('myevent', 'mydata')
