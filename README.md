@@ -4,6 +4,7 @@ pusherclient
 =============
 
 pusherclient is a python module for handling pusher websockets
+now handling clusters
 
 Installation
 ------------
@@ -14,6 +15,8 @@ This module depends on websocket-client module available from: <http://github.co
 
 Example
 -------
+
+python examples/basicImproved.py <appkey> <cluster>
 
 Example of using this pusher client to consume websockets::
 ```
@@ -74,9 +77,10 @@ Sending pusher events to a channel can be done simply using the pusher client su
 
 Thanks
 ------
-
+Forking from ekulyk
 Built using the websocket-client module from <http://github.com/liris/websocket-client>.
 The ruby gem by Logan Koester which provides a similar service was also very helpful for a reference.  Take a look at it here: <http://github.com/logankoester/pusher-client>.
+
 
 Copyright
 ---------
