@@ -34,7 +34,7 @@ root.addHandler(ch)
 global pusher
 
 def print_usage(filename):
-    print("Usage: python %s <appkey>" % filename)
+    print("Usage: python %s <appkey> <cluster>" % filename)
 
 def channel_callback(data):
     print("Channel Callback: %s" % data)
