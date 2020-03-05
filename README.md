@@ -34,7 +34,7 @@ Example of using this pusher client to consume websockets::
         channel = pusher.subscribe('mychannel')
         channel.bind('myevent', callback)
 
-    pusher = pusherclient.Pusher(appkey)
+    pusher = pusherclient.Pusher(appkey,cluster)
     pusher.connection.bind('pusher:connection_established', connect_handler)
     pusher.connect()
 
@@ -47,6 +47,7 @@ Sending pusher events to a channel can be done simply using the pusher client su
     import pusher
     pusher.app_id = app_id
     pusher.key = appkey
+    pusher.cluster = cluster
 
     p = pusher.Pusher()
     p['mychannel'].trigger('myevent', 'mydata')
