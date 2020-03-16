@@ -3,6 +3,8 @@
 pusherclient
 =============
 
+Modification of the original pusherclient.
+
 pusherclient is a python module for handling pusher websockets
 now handling clusters
 
